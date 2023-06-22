@@ -7,7 +7,9 @@ inline fn thisDir() []const u8 {
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
-    
+
+    // You don't need to package libTES3MP-core itself -- you just need the .lib file it generates,
+    // so you can bind to it.
     const libTES3MP = b.addSharedLibrary(.{
         .name = "libTES3MP-core",
         .root_source_file = .{ .path = "lib/libTES3MP-core/src/main.zig" },
@@ -29,8 +31,8 @@ pub fn build(b: *std.Build) void {
     });
     lib.addLibraryPath(thisDir() ++ "/zig-out/deps");
     lib.linkSystemLibrary("libTES3MP-core");
-    
-    switch(optimize)  {
+
+    switch (optimize) {
         .ReleaseFast, .ReleaseSmall => lib.strip = true,
         else => {},
     }
