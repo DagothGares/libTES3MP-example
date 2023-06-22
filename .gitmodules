@@ -1,0 +1,3 @@
+[submodule "lib/libTES3MP-core"]
+	path = lib/libTES3MP-core
+	url = https://github.com/DagothGares/libTES3MP-core
