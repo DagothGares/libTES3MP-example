@@ -1,6 +1,6 @@
 const std = @import("std");
 
-extern "libTES3MP-core" fn libtes3mp_LogMessage(c_int, ?[*:0]const u8) void;
+extern "libTES3MP-core" fn libtes3mp_LogMessage(c_int, [*:0]const u8) void;
 
 extern "libTES3MP-core" fn libtes3mp_bind_OnServerPostInit(*const fn () callconv(.C) u8) callconv(.C) void;
 
