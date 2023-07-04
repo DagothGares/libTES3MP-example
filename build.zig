@@ -14,10 +14,12 @@ pub fn build(b: *std.Build) void {
         .name = "libTES3MP-core",
         .root_source_file = .{ .path = "lib/libTES3MP-core/src/main.zig" },
         .target = target,
-        .optimize = .ReleaseFast, // libTES3MP currently cannot be run in other release modes.
+        .optimize = optimize,
     });
-    // Since libTES3MP uses ReleaseFast, there's no need to keep debug info.
-    libTES3MP.strip = true;
+    switch (optimize) {
+        .ReleaseFast, .ReleaseSmall => libTES3MP.strip = true,
+        else => {},
+    }
     libTES3MP.override_dest_dir = .{
         .custom = "deps",
     };
